@@ -8,10 +8,12 @@ public class Main {
         int input = 0;
 
         System.out.println("Select Operation:");
-        System.out.println("1: Decimal -> binary");
-        System.out.println("2: Binary  -> decimal");
-        System.out.println("3: Binary  -> hexademical");
-        
+        System.out.println("1: Decimal     ->   binary");
+        System.out.println("2: Binary      ->   decimal");
+        System.out.println("3: Binary      ->   hexademical");
+        System.out.println("4: hexadecimal ->   binary");
+
+        System.out.print("input: ");
         input = userInput.nextInt();
 
         switch (input){
@@ -25,6 +27,9 @@ public class Main {
 
             case 3:
                 Case3(userInput);
+                break;
+            case 4:
+                Case4(userInput);
                 break;
 
 
@@ -40,6 +45,7 @@ public class Main {
         var.decimal = userInput.nextInt();
         var.length = dectobin.get_Length(var.decimal);
         var.binary = dectobin.Convert(var.decimal,var.length);
+        System.out.println("binary length: "+var.length + " ");
         dectobin.Display(var.binary);
     }
 
@@ -69,8 +75,25 @@ public class Main {
 
         hextobin.assign_Bin(shift, hexBin, binary);
         System.out.print("Binary: ");
-       hextobin.ShowBin(hexBin);
+        hextobin.ShowBin(hexBin);
         String Hex = hextobin.getBits(hexBin);
         System.out.println(" Hex: "+Hex);
+    }
+
+
+    public static void Case4(Scanner userInput){
+        HexaToBin hexaTobin = new HexaToBin();
+        System.out.print("Input Decimal Value: ");
+        String  hexa = userInput.next();
+        GlobalVar [] bitsVal = new GlobalVar[hexa.length()];
+        GlobalVar binary = new GlobalVar();
+        binary.binary = new int[hexa.length() * 4];
+        int length = 0;
+
+
+        bitsVal = hexaTobin.Convert(hexa,bitsVal);
+        System.out.print("binary: ");
+        hexaTobin.DisplayHex(bitsVal, length);
+
     }
 }
