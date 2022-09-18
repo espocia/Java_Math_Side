@@ -19,15 +19,10 @@ public class DectoBin {
     }
 
     public static int [] Convert(int decimal, int length){
-        HextoBin shift = new HextoBin();
-        int shiftval = shift.get_Shift(length);
 
-        int [] binary = new int[length + shiftval];
+        int [] binary = new int[length ];
         for (int i = 0; i < binary.length; i++ ){
 
-            if( i < shiftval){
-                binary[i] = 0;
-            }else {
                 if ((decimal % 2) == 1) {
                     binary[i] = 1;
                 } else {
@@ -36,7 +31,7 @@ public class DectoBin {
                 decimal /= 2;
             }
 
-        }
+
         return binary;
     }
 }

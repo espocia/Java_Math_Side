@@ -1,5 +1,5 @@
 import java.util.*;
-public class HexaToBin {
+public class HexaToBin extends DectoBin {
 
     public void DisplayHex(GlobalVar[] bitsVal, int length){
         for (int i = 0 ; i < bitsVal.length; i++){
@@ -17,12 +17,14 @@ public class HexaToBin {
     }
 
     public GlobalVar [] Convert(String hexa, GlobalVar[] bitsVal){
-        DectoBin destobin = new DectoBin();
 
         for (int i = 0; i < hexa.length(); i++){
             int decimal = 0;
 
             switch (hexa.charAt(i)){
+                case '0':
+                    decimal = Character.getNumericValue(hexa.charAt(i));
+                    break;
                 case '1':
                     decimal = Character.getNumericValue(hexa.charAt(i));
                     break;
@@ -70,14 +72,45 @@ public class HexaToBin {
                     break;
             }
 
-            int length = destobin.get_Length( decimal);
+            int length = get_Length( decimal);
             bitsVal[i] = new GlobalVar();
-            bitsVal[i].bits = destobin.Convert(decimal , length);
+            bitsVal[i].bits = Convert(decimal , length);
 
         }
 
 
         return bitsVal;
+    }
+
+    public static int [] Convert(int decimal, int length){
+        HextoBin shift = new HextoBin();
+        int shiftval = shift.get_Shift(length);
+
+        if( decimal == 0){
+
+            int [] binary = {0,0,0,0};
+
+            return binary;
+
+        }else {
+            int[] binary = new int[length + shiftval];
+            for (int i = binary.length - 1; i >= 0; i--) {
+
+                if (i < shiftval) {
+                    binary[i] = 0;
+                } else {
+                    if ((decimal % 2) == 1) {
+                        binary[i] = 1;
+                    } else {
+                        binary[i] = 0;
+                    }
+                    decimal /= 2;
+                }
+
+            }
+            return binary;
+        }
+
     }
 
 
